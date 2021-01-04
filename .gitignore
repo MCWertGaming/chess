@@ -1,0 +1,30 @@
+# vscode config files
+.vscode/
+# vscode remote sontainer files
+.devcontainer/
+# linux cmake files and cache
+build/
+# vs community config and project files
+.vs/
+CMakeSettings.json
+*.sln
+*.vcxitems
+*.vcxproj
+*.filters
+console-utils.dir/
+Debug/
+# windows cmake files and cache
+out/
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+# linux ImGUI files
+imgui.ini
+# CLion Windows files
+cmake-build-release/
+cmake-build-release-visual-studio/
+cmake-build-release-cygwin/
+cmake-build-debug/
+cmake-build-debug-visual-studio/
+cmake-build-debug-cygwin/
+.idea/
