@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(snek
+project(chess
         VERSION 0.0.1
         DESCRIPTION "Chess - a Simple chess game inside your terminal"
         HOMEPAGE_URL "https://github.com/MCWertGaming/chess"
@@ -8,10 +8,24 @@ project(snek
 # use newest CXX standard, because why not
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
+
 # configure about file
 configure_file(chess/information.hpp.in chess/information.hpp)
+# add include directory for using generated headers
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/chess)
+
 # include cmake modules
 include(FetchContent)
+
+# disable ftxui library targets
+set(FTXUI_BUILD_EXAMPLES false)
+set(FTXUI_BUILD_DOCS false)
+set(FTXUI_ENABLE_INSTALL false)
+set(FTXUI_BUILD_TESTS false)
+
+# disable not required FOLF targets
+set(FOLF_BUILD_EXAMPLES false)
+set(FOLF_ENABLE_INSTALL false)
 
 # download ftxui library
 set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
@@ -23,6 +37,7 @@ if(NOT ftxui_POPULATED)
   FetchContent_Populate(ftxui)
   add_subdirectory(${ftxui_SOURCE_DIR} ${ftxui_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
+
 # download folf-namespace library
 FetchContent_Declare(folf_namespace
   GIT_REPOSITORY https://github.com/FOLF-projects/folf-namespace.git
@@ -36,9 +51,13 @@ endif()
 
 # targets
 add_executable(hello-world chess/hello-world.cpp)
+
 add_executable(config-test chess/config-test.cpp)
+target_link_libraries(config-test PRIVATE folf-namespace)
+
 add_executable(main chess/main.cpp)
 
+# create a list of all targets
 set(target-list hello-world config-test main)
 
 # enable warnings and set compile features
