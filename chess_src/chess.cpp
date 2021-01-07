@@ -1,23 +1,31 @@
 #include "chess.hpp"
 #include "parsing.hpp"
+#include <stdexcept>
 
 /* private members */
 
 /* parsing functions */
 unsigned int chess::chess::getPice(unsigned int *x, unsigned int *y)
 {
-    return chessField[*x][*y] - getColor(x,y);
+    if (chessField[*x][*y] - getColor(x,y) < 7)
+        return chessField[*x][*y] - getColor(x,y);
+    else
+        std::runtime_error("Illegal pice value inside chess::chess::chessField[][] found!");
+    return 0; // compiler dummy
 }
 unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
 {
-    // indicates a white pice
-    if (chessField[*x][*y] > piceBlackColor)
+    if (chessField[*x][*y] < 27 &&
+        chessField[*x][*y] > piceBlackColor)
         return piceBlackColor;
-    else if (chessField[*x][*y] > piceWhiteColor)
+    else if (chessField[*x][*y] < 17 &&
+             chessField[*x][*y] > piceWhiteColor)
         return piceWhiteColor;
-    else
+    else if (chessField[*x][*y] == piceEmpty)
         return piceEmpty;
-    // TODO throw runtime error, if an illegal value appears
+    else
+        std::runtime_error("Illegal color value inside chess::chess::chessField[][] found!");
+    return 0; // compiler dummy
 }
 /* manipulate pices */
 void chess::chess::removePice(const unsigned int *piceX, const unsigned int *piceY)
@@ -133,9 +141,10 @@ bool chess::chess::canMove(unsigned int *fromX, unsigned int *fromY, unsigned in
             return canKingMove(fromX,fromY,toX,toY,createVector(fromX,toX), createVector(fromY,toY));
         case piceQueen:
             return canQueenMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
+        default:
+            std::runtime_error("chess::chess::getPice() returned an illegal value!");
     }
-    // TODO: throw runtime_error
-    return 0;
+    return 0; // compiler dummy
 }
 bool chess::chess::canPawnMove(unsigned int *fromX, unsigned int *fromY, unsigned int *toX, unsigned int *toY, const signed int xVector, const signed int yVector)
 {
