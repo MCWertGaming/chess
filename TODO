@@ -3,6 +3,7 @@
 // clean up work
 move movement checks outside the class
 add runtime_error handling
+throw runtime_errors on wrong data
 check, if the field is really clean
 check, if the the starting position is correct
 
@@ -19,6 +20,3 @@ castling
 
 // waiting
 move createVector into folf
-
-// for later
-throw runtime_errors on wrong data

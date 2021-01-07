@@ -1,29 +1,23 @@
 #include "chess.hpp"
 #include "parsing.hpp"
-#include <stdexcept>
 
 /* private members */
 
 /* parsing functions */
 unsigned int chess::chess::getPice(unsigned int *x, unsigned int *y)
 {
-    if (7 > chessField[*x][*y] - getColor(x,y) > 0)
-        return chessField[*x][*y] - getColor(x,y);
-    else
-        // illegal value, something must gone wrong!
-        std::runtime_error("Invalid value in chess::chess::chessField[][] while parsing pice!");
+    return chessField[*x][*y] - getColor(x,y);
 }
 unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
 {
-    if (27 > chessField[*x][*y] > piceBlackColor)
+    // indicates a white pice
+    if (chessField[*x][*y] > piceBlackColor)
         return piceBlackColor;
-    else if (17 > chessField[*x][*y] > piceWhiteColor)
+    else if (chessField[*x][*y] > piceWhiteColor)
         return piceWhiteColor;
-    else if (chessField[*x][*y] == piceEmpty)
-        return piceEmpty;
     else
-        // illegal value, something must gone wrong!
-        std::runtime_error("Invalid value in chess::chess::chessField[][] while parsing pice color!");
+        return piceEmpty;
+    // TODO throw runtime error, if an illegal value appears
 }
 /* manipulate pices */
 void chess::chess::removePice(const unsigned int *piceX, const unsigned int *piceY)
@@ -36,12 +30,16 @@ void chess::chess::addPice(const unsigned int *piceX, const unsigned int *piceY,
     // places a piece
     chessField[*piceX][*piceY] = *piceID;
 }
+// TODO
+// bool chess::chess::checkMate(unsigned int *kingX, unsigned int *kingY)
+// {
+//     return true;
+// }
 
 /* public members */
 
 chess::chess::chess()
 {
-    // clears the field on start
     clearField();
 }
 
@@ -100,7 +98,7 @@ unsigned int chess::chess::movePice(unsigned int fromX, unsigned int fromY, unsi
         return 2;
         // actual check, if the movement is legal
     else if (!canMove(&fromX, &fromY, &toX, &toY))
-        return 3;
+        return 6;
     // TODO check, if king is in check
     // TODO check, if it's checkmate
     // TODO check for stalemate
