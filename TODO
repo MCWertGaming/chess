@@ -1,0 +1,22 @@
+// chess todo
+
+// clean up work
+pwn capture testing
+pre move checks testing
+move createVector into folf
+move movement checks outside the class
+move pre move checks outside the class
++ tighten movePice()
+add runtime_error handling
+throw runtime_errors on wrong data
+
+every pice tested in white and black
+every pice tested in movement / capture / illegal movement / move through etc
+
+move from shitty unit testing to google tests
+
+// game mechanics
+check for checkmate
+check for stalemate (patt)
+en passong
+castling
