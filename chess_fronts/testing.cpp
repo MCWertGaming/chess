@@ -161,6 +161,7 @@ int main()
     chf.clearField();
     if (chf.movePice(99,424,4324,42342,24) == 0)
         std::cout << "ERROR 56\n";
+    // these checks are not working, as the compiler warnings are not allowing it at all
     // if (chf.movePice(-99,432434.423434,434004555357853584,'s',"sdasdds") == 0)
     //     std::cout << "ERROR 56\n";
     // if (chf.movePice('g',458350845909834895,4545545,'s',"sdasdds") == 0)
