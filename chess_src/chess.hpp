@@ -23,14 +23,9 @@ namespace chess
             void addPice(const unsigned int*, const unsigned int*, const unsigned int*);
             // returns true, if the pice can move to the destination
 
-            /* game status checks */
+            /* pice move checks */
 
-            // bool checkMate(unsigned int*, unsigned int*);
-
-            /* check, if a pice can move the gives way */
-            // TODO move outside the class
-
-            // returns true, if the pice can move to the destination
+            // move checks
             bool canMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*);
 
             bool canPawnMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*, signed int, signed int);
@@ -42,19 +37,10 @@ namespace chess
 
             bool kingInDanger(unsigned int, unsigned int, unsigned int);
 
-            /* pre move checks */
-            // TODO move outside the class
-
-            // returns true, if the destination is the same as the location
-            static bool checkSameLocation(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*);
-            // returns true, if the pice exists
-            static bool checkPiceExists(unsigned int);
-            // returns true, if the destination is on the board
-            static bool onBoard(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*);
-            // returns true, if the given pice has the same color as the given
-            bool checkRightColor(unsigned int);
-            // returns true, if the given movement captures a pice of the same color as the capturing pice
-            bool checkCaptureTeam(unsigned int*, unsigned int*, unsigned int*, unsigned int*);
+            // after move checks
+            // TODO checkmate
+            // TODO stalemate
+            // TODO check field integrity (make optional)
 
         public:
             chess();
@@ -71,6 +57,21 @@ namespace chess
             // move a pice
             unsigned int movePice(unsigned int, unsigned int, unsigned int, unsigned int, bool);
     };
+
+    // pre move checks
+    bool preMoveChecks(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int, const unsigned int, const bool*);
+
+    // returns true, if the destination is the same as the location
+    bool checkSameLocation(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*);
+    // returns true, if the pice exists
+    bool checkPiceExists(const unsigned int*);
+    // returns true, if the destination is on the board
+    bool onBoard(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*);
+    // returns true, if the given pice has the same color as the given
+    bool checkRightColor(const unsigned int*, const bool*);
+    // returns true, if the given movement captures a pice of the same color as the capturing pice
+    bool checkCaptureTeam(const unsigned int*, const bool*);
+
     // TODO move into FOLF
     signed int createVector(const unsigned int*, const unsigned int*);
 }

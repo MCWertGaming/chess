@@ -17,6 +17,7 @@ unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
         return piceWhiteColor;
     else
         return piceEmpty;
+    // TODO throw runtime error, if an illegal value appears
 }
 /* manipulate pices */
 void chess::chess::removePice(const unsigned int *piceX, const unsigned int *piceY)
@@ -88,27 +89,19 @@ void chess::chess::createPice(unsigned int locationX, unsigned int locationY, un
 }
 unsigned int chess::chess::movePice(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
 {
-    // check, if the location is on the board
-    if (!onBoard(&fromX,&fromY, &toX, &toY))
+
+    // pre move checks
+    // check for invalid input to avoid segmentation fault
+    if (!onBoard(&fromX, &fromY, &toX, &toY))
         return 1;
-        // check, if the pice exists on the given location
-    else if (getPice(&fromX,&fromY) == piceEmpty)
-        return 3;
-        // check, if the destination is the same as the location
-    else if (checkSameLocation(&fromX, &fromY, &toX, &toY))
-        return 4;
-        // checks, if the pice has the given color
-    else if ((getColor(&fromX, &fromY) == piceWhiteColor && !whitesTurn) || (getColor(&fromX, &fromY) == piceBlackColor && whitesTurn))
-        return 5;
-        // check, if the figure can reach the destination
+    if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
+        return 2;
+        // actual check, if the movement is legal
     else if (!canMove(&fromX, &fromY, &toX, &toY))
         return 6;
-    // checks, if the destination includes a pice of the same color
-    if (getPice(&toX,&toY) != piceEmpty && ((getColor(&toX,&toY) == piceWhiteColor && whitesTurn) || (getColor(&toX,&toY) == piceBlackColor && !whitesTurn)))
-        return 7;
     // TODO check, if king is in check
     // TODO check, if it's checkmate
-    // TODO check for patt
+    // TODO check for stalemate
 
     // add the new figure
     // addPice(toX,toY, getPice(fromX,fromY));
@@ -291,18 +284,41 @@ bool chess::chess::kingInDanger(unsigned int locationX, unsigned int locationY, 
 }
 
 /* pre move checks */
-bool chess::chess::checkSameLocation(const unsigned int *fromX, const unsigned int *fromY, const unsigned int *toX, const unsigned int *toY)
+
+bool chess::preMoveChecks(const unsigned int* fromX, const unsigned int* fromY, const unsigned int* toX, const unsigned int* toY, const unsigned int colorFrom, const unsigned int colorTo, const bool* whitesTurn)
+{
+    return checkPiceExists(&colorFrom) &&
+           !checkSameLocation(fromX, fromY, toX, toY) &&
+           checkRightColor(&colorFrom, whitesTurn) &&
+           !checkCaptureTeam(&colorTo, whitesTurn);
+}
+bool chess::checkSameLocation(const unsigned int *fromX, const unsigned int *fromY, const unsigned int *toX, const unsigned int *toY)
 {
     return fromX == toX && fromY == toY;
 }
-bool chess::chess::onBoard(const unsigned int* coordination1, const unsigned int *coordination2, const unsigned int *coordination3, const unsigned int *coordination4)
+bool chess::onBoard(const unsigned int* coordination1, const unsigned int *coordination2, const unsigned int *coordination3, const unsigned int *coordination4)
 {
-    return *coordination1 < 8 && *coordination2 < 8 && *coordination3 < 8 && *coordination4 < 8;
+    return *coordination1 < 8 &&
+           *coordination2 < 8 &&
+           *coordination3 < 8 &&
+           *coordination4 < 8;
 }
-bool chess::chess::checkPiceExists(unsigned int pice)
+bool chess::checkPiceExists(const unsigned int* colorFrom)
 {
-    return pice != piceEmpty;
+    return *colorFrom != piceEmpty;
 }
+bool chess::checkRightColor(const unsigned int*colorFrom, const bool *whitesTurn)
+{
+    return (*colorFrom == piceWhiteColor && *whitesTurn) ||
+           (*colorFrom == piceBlackColor && !*whitesTurn);
+}
+bool chess::checkCaptureTeam(const unsigned int* colorDestination, const bool *whitesTurn)
+{
+    return *colorDestination != piceEmpty &&
+           ((*colorDestination == piceWhiteColor && *whitesTurn) ||
+           (*colorDestination == piceBlackColor && !*whitesTurn));
+}
+
 // TODO move into FOLF
 signed int chess::createVector(const unsigned int *from, const unsigned int *to)
 {
