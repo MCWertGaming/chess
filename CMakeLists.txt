@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 # configure about file
-configure_file(chess/information.hpp.in chess/information.hpp)
+configure_file(chess_src/information.hpp.in chess_src/information.hpp)
 # add include directory for using generated headers
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/chess)
 
@@ -18,14 +18,14 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/chess)
 include(FetchContent)
 
 # disable ftxui library targets
-set(FTXUI_BUILD_EXAMPLES false)
-set(FTXUI_BUILD_DOCS false)
-set(FTXUI_ENABLE_INSTALL false)
-set(FTXUI_BUILD_TESTS false)
+set(FTXUI_BUILD_EXAMPLES off)
+set(FTXUI_BUILD_DOCS off)
+set(FTXUI_ENABLE_INSTALL off)
+set(FTXUI_BUILD_TESTS off)
 
 # disable not required FOLF targets
-set(FOLF_BUILD_EXAMPLES false)
-set(FOLF_ENABLE_INSTALL false)
+set(FOLF_BUILD_EXAMPLES off)
+set(FOLF_ENABLE_INSTALL off)
 
 # download ftxui library
 set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
@@ -49,16 +49,33 @@ if(NOT folf_namespace_POPULATED)
   add_subdirectory(${folf_namespace_SOURCE_DIR} ${folf_namespace_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
+# chess source
+set(chess-source chess_src/chess.cpp)
+
 # targets
-add_executable(hello-world chess/hello-world.cpp)
+add_executable(hello-world chess_tools/hello-world.cpp)
 
-add_executable(config-test chess/config-test.cpp)
-target_link_libraries(config-test PRIVATE folf-namespace)
+add_executable(config-test chess_tools/config-test.cpp)
+target_link_libraries(config-test
+        PRIVATE folf-namespace
+        PRIVATE ftxui::screen
+        PRIVATE ftxui::dom
+        PRIVATE ftxui::component
+        )
 
-add_executable(main chess/main.cpp)
+add_executable(terminal-sandbox chess_tools/terminal-sandbox.cpp)
+target_link_libraries(terminal-sandbox
+        PRIVATE folf-namespace
+        PRIVATE ftxui::screen
+        PRIVATE ftxui::dom
+        PRIVATE ftxui::component
+        )
+
+add_executable(chess-testing chess_fronts/testing.cpp ${chess-source})
+target_include_directories(chess-testing PUBLIC chess_src/)
 
 # create a list of all targets
-set(target-list hello-world config-test main)
+set(target-list hello-world config-test terminal-sandbox chess-testing)
 
 # enable warnings and set compile features
 foreach(target ${target-list})
