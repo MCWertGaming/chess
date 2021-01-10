@@ -1,0 +1,27 @@
+name: linux-integration-testing
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v1
+      - name: build MSVC release
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Release
+      - name: build MSVC debug
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Debug

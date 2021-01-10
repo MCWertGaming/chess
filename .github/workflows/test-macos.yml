@@ -1,0 +1,61 @@
+name: linux-integration-testing
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  # Make Homebrew installation a little quicker
+  HOMEBREW_NO_ANALYTICS: "ON"
+  HOMEBREW_NO_AUTO_UPDATE: "ON"
+  HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK: "ON"
+  HOMEBREW_NO_GITHUB_API: "ON"
+  HOMEBREW_NO_INSTALL_CLEANUP: "ON"
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v1
+      - name: build gcc release
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Release
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
+      - name: build gcc Debug
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Debug
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
+      - name: build clang release
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Release
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/clang
+          CXX: /usr/bin/clang++
+      - name: build clang debug
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Debug
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/clang
+          CXX: /usr/bin/clang++

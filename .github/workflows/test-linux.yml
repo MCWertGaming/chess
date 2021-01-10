@@ -1,0 +1,53 @@
+name: linux-integration-testing
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v1
+      - name: build gcc release
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Release
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
+      - name: build gcc Debug
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Debug
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/gcc
+          CXX: /usr/bin/g++
+      - name: build clang release
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Release
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/clang
+          CXX: /usr/bin/clang++
+      - name: build clang debug
+        run: |
+          bash git reset --hard
+          bash git clean -fdx
+          bash cmake --build . --config Debug
+          bash ./.ci/run-programs.sh
+        env:
+          CC: /usr/bin/clang
+          CXX: /usr/bin/clang++
