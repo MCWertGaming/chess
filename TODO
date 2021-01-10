@@ -6,8 +6,8 @@ add runtime_error handling
 check, if the field is really clean
 check, if the the starting position is correct
 
-every pice tested in white and black
-every pice tested in movement / capture / illegal movement / move through etc
+every piece tested in white and black
+every piece tested in movement / capture / illegal movement / move through etc
 
 move from shitty unit testing to google tests
 

@@ -4,53 +4,53 @@
 
 #include "chess.hpp"
 
-unsigned int chess::pice::blackPawn()
+unsigned int chess::piece::blackPawn()
 {
     return 1;
 }
-unsigned int chess::pice::blackRook()
+unsigned int chess::piece::blackRook()
 {
     return 2;
 }
-unsigned int chess::pice::blackBishop()
+unsigned int chess::piece::blackBishop()
 {
     return 3;
 }
-unsigned int chess::pice::blackKnight()
+unsigned int chess::piece::blackKnight()
 {
     return 4;
 }
-unsigned int chess::pice::blackKing()
+unsigned int chess::piece::blackKing()
 {
     return 5;
 }
-unsigned int chess::pice::blackQueen()
+unsigned int chess::piece::blackQueen()
 {
     return 6;
 }
-unsigned int chess::pice::whitePawn()
+unsigned int chess::piece::whitePawn()
 {
-    return chess::pice::blackPawn() + 10;
+    return chess::piece::blackPawn() + 10;
 }
-unsigned int chess::pice::whiteRook()
+unsigned int chess::piece::whiteRook()
 {
-    return chess::pice::blackRook() + 10;
+    return chess::piece::blackRook() + 10;
 }
-unsigned int chess::pice::whiteBishop()
+unsigned int chess::piece::whiteBishop()
 {
-    return chess::pice::blackBishop() + 10;
+    return chess::piece::blackBishop() + 10;
 }
-unsigned int chess::pice::whiteKnight()
+unsigned int chess::piece::whiteKnight()
 {
-    return chess::pice::blackKnight() + 10;
+    return chess::piece::blackKnight() + 10;
 }
-unsigned int chess::pice::whiteKing()
+unsigned int chess::piece::whiteKing()
 {
-    return chess::pice::blackKing() + 10;
+    return chess::piece::blackKing() + 10;
 }
-unsigned int chess::pice::whiteQueen()
+unsigned int chess::piece::whiteQueen()
 {
-    return chess::pice::blackQueen() + 10;
+    return chess::piece::blackQueen() + 10;
 }
 signed int chess::createVector(const unsigned int *from, const unsigned int *to)
 {

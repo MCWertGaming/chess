@@ -5,38 +5,38 @@
 /* private members */
 
 /* parsing functions */
-unsigned int chess::chess::getPice(unsigned int *x, unsigned int *y)
+unsigned int chess::chess::getPiece(unsigned int *x, unsigned int *y)
 {
     if (chessField[*x][*y] - getColor(x,y) < 7)
         return chessField[*x][*y] - getColor(x,y);
     else
-        std::runtime_error("Illegal pice value inside chess::chess::chessField[][] found!");
+        std::runtime_error("Illegal piece value inside chess::chess::chessField[][] found!");
     return 0; // compiler dummy
 }
 unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
 {
     if (chessField[*x][*y] < 27 &&
-        chessField[*x][*y] > piceBlackColor)
-        return piceBlackColor;
+        chessField[*x][*y] > pieceBlackColor)
+        return pieceBlackColor;
     else if (chessField[*x][*y] < 17 &&
-             chessField[*x][*y] > piceWhiteColor)
-        return piceWhiteColor;
-    else if (chessField[*x][*y] == piceEmpty)
-        return piceEmpty;
+             chessField[*x][*y] > pieceWhiteColor)
+        return pieceWhiteColor;
+    else if (chessField[*x][*y] == pieceEmpty)
+        return pieceEmpty;
     else
         std::runtime_error("Illegal color value inside chess::chess::chessField[][] found!");
     return 0; // compiler dummy
 }
-/* manipulate pices */
-void chess::chess::removePice(const unsigned int *piceX, const unsigned int *piceY)
+/* manipulate pieces */
+void chess::chess::removePiece(const unsigned int *pieceX, const unsigned int *pieceY)
 {
-    // changes the pice location to 0
-    chessField[*piceX][*piceY] = 0;
+    // changes the piece location to 0
+    chessField[*pieceX][*pieceY] = 0;
 }
-void chess::chess::addPice(const unsigned int *piceX, const unsigned int *piceY, const unsigned int *piceID)
+void chess::chess::addPiece(const unsigned int *pieceX, const unsigned int *pieceY, const unsigned int *pieceID)
 {
     // places a piece
-    chessField[*piceX][*piceY] = *piceID;
+    chessField[*pieceX][*pieceY] = *pieceID;
 }
 // TODO
 // bool chess::chess::checkMate(unsigned int *kingX, unsigned int *kingY)
@@ -58,44 +58,44 @@ void chess::chess::clearField()
     {
         for (int j = 0; j <= 7; ++j)
         {
-            chessField[i][j] = piceEmpty;
+            chessField[i][j] = pieceEmpty;
         }
     }
 }
 void chess::chess::initializeField()
 {
     // white
-    chessField[0][0] = piceWhiteRook;
-    chessField[1][0] = piceWhiteKnight;
-    chessField[2][0] = piceWhiteBishop;
-    chessField[3][0] = piceWhiteQueen;
-    chessField[4][0] = piceWhiteKing;
-    chessField[5][0] = piceWhiteBishop;
-    chessField[6][0] = piceWhiteKnight;
-    chessField[7][0] = piceWhiteRook;
+    chessField[0][0] = pieceWhiteRook;
+    chessField[1][0] = pieceWhiteKnight;
+    chessField[2][0] = pieceWhiteBishop;
+    chessField[3][0] = pieceWhiteQueen;
+    chessField[4][0] = pieceWhiteKing;
+    chessField[5][0] = pieceWhiteBishop;
+    chessField[6][0] = pieceWhiteKnight;
+    chessField[7][0] = pieceWhiteRook;
     for (int i = 0; i <= 7; ++i)
     {
-        chessField[i][1] = piceWhitePawn;
+        chessField[i][1] = pieceWhitePawn;
     }
     // black
-    chessField[0][7] = piceBlackRook;
-    chessField[1][7] = piceBlackKnight;
-    chessField[2][7] = piceBlackBishop;
-    chessField[3][7] = piceBlackQueen;
-    chessField[4][7] = piceBlackKing;
-    chessField[5][7] = piceBlackBishop;
-    chessField[6][7] = piceBlackKnight;
-    chessField[7][7] = piceBlackRook;
+    chessField[0][7] = pieceBlackRook;
+    chessField[1][7] = pieceBlackKnight;
+    chessField[2][7] = pieceBlackBishop;
+    chessField[3][7] = pieceBlackQueen;
+    chessField[4][7] = pieceBlackKing;
+    chessField[5][7] = pieceBlackBishop;
+    chessField[6][7] = pieceBlackKnight;
+    chessField[7][7] = pieceBlackRook;
     for (int i = 0; i <= 7; ++i)
     {
-        chessField[i][6] = piceBlackPawn;
+        chessField[i][6] = pieceBlackPawn;
     }
 }
-void chess::chess::createPice(unsigned int locationX, unsigned int locationY, unsigned int piceId)
+void chess::chess::createPiece(unsigned int locationX, unsigned int locationY, unsigned int pieceId)
 {
-    chessField[locationX][locationY] = piceId;
+    chessField[locationX][locationY] = pieceId;
 }
-unsigned int chess::chess::movePice(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
+unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
 {
 
     // pre move checks
@@ -112,18 +112,18 @@ unsigned int chess::chess::movePice(unsigned int fromX, unsigned int fromY, unsi
     // TODO check for stalemate
 
     // add the new figure
-    // addPice(toX,toY, getPice(fromX,fromY));
+    // addPiece(toX,toY, getPiece(fromX,fromY));
 
     // remove the figure
-    // removePice(fromX,fromY);
-    // TODO remove old pice
+    // removePiece(fromX,fromY);
+    // TODO remove old piece
 
     // (add the new danger zones)
 
 
     return 0;
 }
-bool chess::chess::canMovePice(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
+bool chess::chess::canMovePiece(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
 {
     // pre move checks
     // check for invalid input to avoid segmentation fault
@@ -139,25 +139,25 @@ bool chess::chess::canMovePice(unsigned int fromX, unsigned int fromY, unsigned 
     return true;
 }
 
-/* pice movement checks */
+/* piece movement checks */
 bool chess::chess::canMove(unsigned int *fromX, unsigned int *fromY, unsigned int *toX, unsigned int *toY)
 {
-    switch (getPice(fromX,fromY))
+    switch (getPiece(fromX,fromY))
     {
-        case picePawn:
+        case piecePawn:
             return canPawnMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
-        case piceRook:
+        case pieceRook:
             return canRookMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
-        case piceBishop:
+        case pieceBishop:
             return canBishopMove(fromX, fromY, toX, createVector(fromX,toX), createVector(fromY,toY));
-        case piceKnight:
+        case pieceKnight:
             return canKnightMove(createVector(fromX,toX), createVector(fromY,toY));
-        case piceKing:
+        case pieceKing:
             return canKingMove(fromX,fromY,toX,toY,createVector(fromX,toX), createVector(fromY,toY));
-        case piceQueen:
+        case pieceQueen:
             return canQueenMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
         default:
-            std::runtime_error("chess::chess::getPice() returned an illegal value!");
+            std::runtime_error("chess::chess::getPiece() returned an illegal value!");
     }
     return 0; // compiler dummy
 }
@@ -166,19 +166,19 @@ bool chess::chess::canPawnMove(unsigned int *fromX, unsigned int *fromY, unsigne
     unsigned int toYup = *toY + 1;
     unsigned int toYdown = *toY - 1;
     return (// white pawn moving one forward
-            getColor(fromX, fromY) == piceWhiteColor && yVector == 1 && xVector == 0 && getPice(toX, toY) == piceEmpty) ||
+            getColor(fromX, fromY) == pieceWhiteColor && yVector == 1 && xVector == 0 && getPiece(toX, toY) == pieceEmpty) ||
            // white Pawn moving two forward
-           (getColor(fromX, fromY) == piceWhiteColor && yVector == 2 && xVector == 0 && *fromY == 1 && getPice(toX, toY) == piceEmpty &&
-            getPice(toX, &toYdown) == piceEmpty) ||
-           // white Pawn capturing a pice
-           (getColor(fromX, fromY) == piceWhiteColor && yVector == 1 && (xVector == 1 || xVector == -1) && getPice(toX, toY) != piceEmpty && getColor(toX, toY) == piceBlackColor) ||
+           (getColor(fromX, fromY) == pieceWhiteColor && yVector == 2 && xVector == 0 && *fromY == 1 && getPiece(toX, toY) == pieceEmpty &&
+            getPiece(toX, &toYdown) == pieceEmpty) ||
+           // white Pawn capturing a piece
+           (getColor(fromX, fromY) == pieceWhiteColor && yVector == 1 && (xVector == 1 || xVector == -1) && getPiece(toX, toY) != pieceEmpty && getColor(toX, toY) == pieceBlackColor) ||
            // black Pawn moving one Forward
-           (getColor(fromX, fromY) == piceBlackColor && yVector == -1 && xVector == 0 && getPice(toX, toY) == piceEmpty) ||
+           (getColor(fromX, fromY) == pieceBlackColor && yVector == -1 && xVector == 0 && getPiece(toX, toY) == pieceEmpty) ||
            // black Pawn moving two forward
-           (getColor(fromX, fromY) == piceBlackColor && yVector == -2 && xVector == 0 && *fromY == 6 && getPice(toX, toY) == piceEmpty &&
-            getPice(toX, &toYup) == piceEmpty) ||
-           // black Pawn capturing a pice
-           (getColor(fromX, fromY) == piceBlackColor && yVector == 1 && (xVector == 1 || xVector - 1) && getPice(toX, toY) != piceEmpty && getColor(toX, toY) == piceWhiteColor);
+           (getColor(fromX, fromY) == pieceBlackColor && yVector == -2 && xVector == 0 && *fromY == 6 && getPiece(toX, toY) == pieceEmpty &&
+            getPiece(toX, &toYup) == pieceEmpty) ||
+           // black Pawn capturing a piece
+           (getColor(fromX, fromY) == pieceBlackColor && yVector == 1 && (xVector == 1 || xVector - 1) && getPiece(toX, toY) != pieceEmpty && getColor(toX, toY) == pieceWhiteColor);
 }
 bool chess::chess::canRookMove(unsigned int *fromX, unsigned int *fromY, const unsigned int *toX, const unsigned int *toY, const signed int xVector, const signed int yVector)
 {
@@ -187,7 +187,7 @@ bool chess::chess::canRookMove(unsigned int *fromX, unsigned int *fromY, const u
     {
         for (unsigned int i = *fromX + 1; i < *toX; ++i)
         {
-            if (getPice(&i,fromY) != piceEmpty)
+            if (getPiece(&i,fromY) != pieceEmpty)
                 return false;
         }
     }
@@ -196,7 +196,7 @@ bool chess::chess::canRookMove(unsigned int *fromX, unsigned int *fromY, const u
     {
         for (unsigned int i = *toX + 1; i < *fromX; ++i)
         {
-            if (getPice(&i,fromY) != piceEmpty)
+            if (getPiece(&i,fromY) != pieceEmpty)
                 return false;
         }
     }
@@ -205,7 +205,7 @@ bool chess::chess::canRookMove(unsigned int *fromX, unsigned int *fromY, const u
     {
         for (unsigned int i = *fromY +1; i < *toY; ++i)
         {
-            if (getPice(fromX,&i) != piceEmpty)
+            if (getPiece(fromX,&i) != pieceEmpty)
                 return false;
         }
     }
@@ -214,7 +214,7 @@ bool chess::chess::canRookMove(unsigned int *fromX, unsigned int *fromY, const u
     {
         for (unsigned int i = *toY + 1; i < *fromY; ++i)
         {
-            if (getPice(fromX,&i) != piceEmpty)
+            if (getPiece(fromX,&i) != pieceEmpty)
                 return false;
         }
     }
@@ -230,7 +230,7 @@ bool chess::chess::canBishopMove(const unsigned int *fromX, const unsigned int *
         unsigned int j = *fromY +1;
         for (unsigned int i = *fromX +1; i < *toX; ++i)
         {
-            if (getPice(&i,&j) != piceEmpty)
+            if (getPiece(&i,&j) != pieceEmpty)
                 return false;
             j++;
         }
@@ -242,7 +242,7 @@ bool chess::chess::canBishopMove(const unsigned int *fromX, const unsigned int *
         unsigned int j = *fromY - 1;
         for (unsigned int i = *fromX - 1; i > *toX; --i)
         {
-            if (getPice(&i,&j) != piceEmpty)
+            if (getPiece(&i,&j) != pieceEmpty)
                 return false;
             j--;
         }
@@ -254,7 +254,7 @@ bool chess::chess::canBishopMove(const unsigned int *fromX, const unsigned int *
         unsigned int j = *fromY -1;
         for (unsigned int i = *fromX +1; i < *toX; ++i)
         {
-            if (getPice(&i,&j) != piceEmpty)
+            if (getPiece(&i,&j) != pieceEmpty)
                 return false;
             j--;
         }
@@ -266,7 +266,7 @@ bool chess::chess::canBishopMove(const unsigned int *fromX, const unsigned int *
         unsigned int j = *fromY +1;
         for (unsigned int i = *fromX -1; i > *toX; --i)
         {
-            if (getPice(&i,&j) != 0)
+            if (getPiece(&i,&j) != 0)
                 return false;
             j++;
         }
@@ -292,14 +292,14 @@ bool chess::chess::canQueenMove(unsigned int* fromX, unsigned int *fromY, unsign
     // simply moves like Bishop (diagonal) or Rook (vertical)
     return canBishopMove(fromX, fromY, toX, xVector, yVector) || canRookMove(fromX, fromY, toX, toY, xVector, yVector);
 }
-bool chess::chess::kingInDanger(unsigned int locationX, unsigned int locationY, unsigned int piceColor)
+bool chess::chess::kingInDanger(unsigned int locationX, unsigned int locationY, unsigned int pieceColor)
 {
     for (unsigned int i = 0; i <= 7; ++i)
     {
         for (unsigned int j = 0; j <= 7; ++j)
         {
-            if (getPice(&i,&j) != piceEmpty)
-                if ((getColor(&i,&j) == piceWhiteColor && piceColor == piceBlackColor) || (getColor(&i,&j) == piceBlackColor && piceColor == piceWhiteColor))
+            if (getPiece(&i,&j) != pieceEmpty)
+                if ((getColor(&i,&j) == pieceWhiteColor && pieceColor == pieceBlackColor) || (getColor(&i,&j) == pieceBlackColor && pieceColor == pieceWhiteColor))
                     if (canMove(&i, &j, &locationX, &locationY))
                         return true;
         }
@@ -311,7 +311,7 @@ bool chess::chess::kingInDanger(unsigned int locationX, unsigned int locationY, 
 
 bool chess::preMoveChecks(const unsigned int* fromX, const unsigned int* fromY, const unsigned int* toX, const unsigned int* toY, const unsigned int colorFrom, const unsigned int colorTo, const bool* whitesTurn)
 {
-    return checkPiceExists(&colorFrom) &&
+    return checkPieceExists(&colorFrom) &&
            !checkSameLocation(fromX, fromY, toX, toY) &&
            checkRightColor(&colorFrom, whitesTurn) &&
            !checkCaptureTeam(&colorTo, whitesTurn);
@@ -327,20 +327,20 @@ bool chess::onBoard(const unsigned int* coordination1, const unsigned int *coord
            *coordination3 < 8 &&
            *coordination4 < 8;
 }
-bool chess::checkPiceExists(const unsigned int* colorFrom)
+bool chess::checkPieceExists(const unsigned int* colorFrom)
 {
-    return *colorFrom != piceEmpty;
+    return *colorFrom != pieceEmpty;
 }
 bool chess::checkRightColor(const unsigned int*colorFrom, const bool *whitesTurn)
 {
-    return (*colorFrom == piceWhiteColor && *whitesTurn) ||
-           (*colorFrom == piceBlackColor && !*whitesTurn);
+    return (*colorFrom == pieceWhiteColor && *whitesTurn) ||
+           (*colorFrom == pieceBlackColor && !*whitesTurn);
 }
 bool chess::checkCaptureTeam(const unsigned int* colorDestination, const bool *whitesTurn)
 {
-    return *colorDestination != piceEmpty &&
-           ((*colorDestination == piceWhiteColor && *whitesTurn) ||
-           (*colorDestination == piceBlackColor && !*whitesTurn));
+    return *colorDestination != pieceEmpty &&
+           ((*colorDestination == pieceWhiteColor && *whitesTurn) ||
+           (*colorDestination == pieceBlackColor && !*whitesTurn));
 }
 
 // TODO move into FOLF

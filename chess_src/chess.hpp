@@ -10,20 +10,20 @@ namespace chess
 
             /* parsing functions */
 
-            // returns the pice identification
-            unsigned int getPice(unsigned int*, unsigned int*);
-            // returns true on white pices
+            // returns the piece identification
+            unsigned int getPiece(unsigned int*, unsigned int*);
+            // returns true on white pieces
             unsigned int getColor(unsigned int*, unsigned int*);
             
-            /* manipulate pices */
+            /* manipulate pieces */
 
-            // removes pice
-            void removePice(const unsigned int*, const unsigned int*);
-            // adds pice
-            void addPice(const unsigned int*, const unsigned int*, const unsigned int*);
-            // returns true, if the pice can move to the destination
+            // removes piece
+            void removePiece(const unsigned int*, const unsigned int*);
+            // adds piece
+            void addPiece(const unsigned int*, const unsigned int*, const unsigned int*);
+            // returns true, if the piece can move to the destination
 
-            /* pice move checks */
+            /* piece move checks */
 
             // move checks
             bool canMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*);
@@ -50,14 +50,14 @@ namespace chess
 
             // creates a blank field
             void clearField();
-            // places the pices for starting the game
+            // places the pieces for starting the game
             void initializeField();
-            // manually places a pice
-            void createPice(unsigned int, unsigned int, unsigned int piceId);
-            // move a pice
-            unsigned int movePice(unsigned int, unsigned int, unsigned int, unsigned int, bool);
+            // manually places a piece
+            void createPiece(unsigned int, unsigned int, unsigned int pieceId);
+            // move a piece
+            unsigned int movePiece(unsigned int, unsigned int, unsigned int, unsigned int, bool);
             // returns true, if the input is valid, for unit testing only
-            bool canMovePice(unsigned int, unsigned int, unsigned int, unsigned int, bool);
+            bool canMovePiece(unsigned int, unsigned int, unsigned int, unsigned int, bool);
     };
 
     // pre move checks
@@ -65,13 +65,13 @@ namespace chess
 
     // returns true, if the destination is the same as the location
     bool checkSameLocation(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*);
-    // returns true, if the pice exists
-    bool checkPiceExists(const unsigned int*);
+    // returns true, if the piece exists
+    bool checkPieceExists(const unsigned int*);
     // returns true, if the destination is on the board
     bool onBoard(const unsigned int*, const unsigned int*, const unsigned int*, const unsigned int*);
-    // returns true, if the given pice has the same color as the given
+    // returns true, if the given piece has the same color as the given
     bool checkRightColor(const unsigned int*, const bool*);
-    // returns true, if the given movement captures a pice of the same color as the capturing pice
+    // returns true, if the given movement captures a piece of the same color as the capturing piece
     bool checkCaptureTeam(const unsigned int*, const bool*);
 
     // TODO move into FOLF

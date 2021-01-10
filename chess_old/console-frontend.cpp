@@ -54,7 +54,7 @@ void consoleFront::startNewGame()
 
 void consoleFront::test(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool white)
 {
-    int test = chf.movePice(fromX,fromY,toX,toY,white);
+    int test = chf.movePiece(fromX,fromY,toX,toY,white);
     std::cout << "return was: " << test << std::endl;
 }
 

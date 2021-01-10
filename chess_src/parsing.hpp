@@ -1,26 +1,26 @@
 // definitions
 
-#define piceEmpty 0
-// pice without color
-#define picePawn 1
-#define piceRook 2
-#define piceBishop 3
-#define piceKnight 4
-#define piceKing 5
-#define piceQueen 6
-// white pice
-#define piceWhiteColor 10
-#define piceWhitePawn 11
-#define piceWhiteRook 12
-#define piceWhiteBishop 13
-#define piceWhiteKnight 14
-#define piceWhiteKing 15
-#define piceWhiteQueen 16
-// black pice
-#define piceBlackColor 20
-#define piceBlackPawn 21
-#define piceBlackRook 22
-#define piceBlackBishop 23
-#define piceBlackKnight 24
-#define piceBlackKing 25
-#define piceBlackQueen 26
+#define pieceEmpty 0
+// piece without color
+#define piecePawn 1
+#define pieceRook 2
+#define pieceBishop 3
+#define pieceKnight 4
+#define pieceKing 5
+#define pieceQueen 6
+// white piece
+#define pieceWhiteColor 10
+#define pieceWhitePawn 11
+#define pieceWhiteRook 12
+#define pieceWhiteBishop 13
+#define pieceWhiteKnight 14
+#define pieceWhiteKing 15
+#define pieceWhiteQueen 16
+// black piece
+#define pieceBlackColor 20
+#define pieceBlackPawn 21
+#define pieceBlackRook 22
+#define pieceBlackBishop 23
+#define pieceBlackKnight 24
+#define pieceBlackKing 25
+#define pieceBlackQueen 26

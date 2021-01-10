@@ -17,29 +17,29 @@ public:
     void clearField();
     // initializes the field for a new game
     void initializeField();
-    // creates a new pice
-    void createPice(unsigned int, unsigned int, unsigned int piceID);
+    // creates a new piece
+    void createPiece(unsigned int, unsigned int, unsigned int pieceID);
     // returns the field
     unsigned int getField(unsigned int, unsigned int);
 
-    // move pice
-    unsigned int movePice(unsigned int, unsigned int, unsigned int, unsigned int, bool);
-    // removes pice
-    void removePice(unsigned int, unsigned int);
-    // adds pice
-    void addPice(unsigned int, unsigned int, unsigned int);
+    // move piece
+    unsigned int movePiece(unsigned int, unsigned int, unsigned int, unsigned int, bool);
+    // removes piece
+    void removePiece(unsigned int, unsigned int);
+    // adds piece
+    void addPiece(unsigned int, unsigned int, unsigned int);
 
 
     // return's how dangerous the field is
     unsigned int isDangerous(unsigned int, unsigned int);
-    // returns the overload of the pice
+    // returns the overload of the piece
     unsigned int getOverload(unsigned int, unsigned int);
-    // returns true, if the pice is white
+    // returns true, if the piece is white
     unsigned int getColor(unsigned int, unsigned int);
-    // returns the pice number
-    unsigned int getPice(unsigned int, unsigned int);
+    // returns the piece number
+    unsigned int getPiece(unsigned int, unsigned int);
 
-    // returns true, if the pice can move to the destination
+    // returns true, if the piece can move to the destination
     bool canMove(unsigned int, unsigned int, unsigned int, unsigned int);
 
 };
@@ -95,9 +95,9 @@ void chessField::initializeField()
     }
 }
 
-void chessField::createPice(unsigned int locationX, unsigned int locationY, unsigned int piceID)
+void chessField::createPiece(unsigned int locationX, unsigned int locationY, unsigned int pieceID)
 {
-    field[locationY][locationX] = piceID;
+    field[locationY][locationX] = pieceID;
 }
 
 unsigned int chessField::getField(unsigned int locationX, unsigned int locationY)
@@ -138,7 +138,7 @@ unsigned int chessField::getColor(unsigned int x, unsigned int y)
     else
         return 0;
 }
-unsigned int chessField::getPice(unsigned int x, unsigned int y)
+unsigned int chessField::getPiece(unsigned int x, unsigned int y)
 {
     return field[y][x] - isDangerous(x,y) - getOverload(x,y) - getColor(x,y);
 }
@@ -149,34 +149,34 @@ bool chessField::canMove(unsigned int fromX, unsigned int fromY, unsigned int to
     signed int xVector = toX - fromX;
     signed int yVector = toY - fromY;
 
-    // saves the pice ID
-    unsigned int pice = getPice(fromX,fromY);
+    // saves the piece ID
+    unsigned int piece = getPiece(fromX,fromY);
 
-    switch (pice)
+    switch (piece)
     {
         case 1:
             // white Pawn moving one Forward
-            if (getColor(fromX,fromY) == 10 && yVector == 1 && xVector == 0 && getPice(toX,toY) == 0)
+            if (getColor(fromX,fromY) == 10 && yVector == 1 && xVector == 0 && getPiece(toX,toY) == 0)
                 return true;
                 // std::cout << "test5\n";
             // white Pawn moving two forward
-            else if (getColor(fromX,fromY) == 10 && yVector == 2 && xVector == 0 && fromY == 1 && getPice(toX,toY) == 0)
+            else if (getColor(fromX,fromY) == 10 && yVector == 2 && xVector == 0 && fromY == 1 && getPiece(toX,toY) == 0)
                 return true;
                 // std::cout << "test4\n";
-            // white Pawn capturing a pice
-            else if (getColor(fromX,fromY) == 10 && yVector == 1 && (xVector == 1 || xVector == -1) && getPice(toX,toY) != 0)
+            // white Pawn capturing a piece
+            else if (getColor(fromX,fromY) == 10 && yVector == 1 && (xVector == 1 || xVector == -1) && getPiece(toX,toY) != 0)
                 return true;
                 // std::cout << "test1\n";
             // black Pawn moving one Forward
-            else if (getColor(fromX,fromY) == 0 && yVector == -1 && xVector == 0 && getPice(toX,toY) == 0)
+            else if (getColor(fromX,fromY) == 0 && yVector == -1 && xVector == 0 && getPiece(toX,toY) == 0)
                 return true;
                 // std::cout << "test2\n";
             // black Pawn moving two forward
-            else if (getColor(fromX,fromY) == 0 && yVector == -2 && xVector == 0 && fromY == 6 && getPice(toX,toY) == 0)
+            else if (getColor(fromX,fromY) == 0 && yVector == -2 && xVector == 0 && fromY == 6 && getPiece(toX,toY) == 0)
                 return true;
                 // std::cout << "test3\n";
-                // black Pawn capturing a pice
-            else if (getColor(fromX,fromY) == 0 && yVector == 1 && (xVector == 1 || xVector -1) && getPice(toX,toY) != 0)
+                // black Pawn capturing a piece
+            else if (getColor(fromX,fromY) == 0 && yVector == 1 && (xVector == 1 || xVector -1) && getPiece(toX,toY) != 0)
                 return true;
                 // std::cout << "test6\n";
             else
@@ -243,47 +243,47 @@ bool chessField::canMove(unsigned int fromX, unsigned int fromY, unsigned int to
     }
 }
 
-unsigned int chessField::movePice(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
+unsigned int chessField::movePiece(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
 {
     // check, if the destination is on the board (avoids a exception)
     if (toX > 7 || toY > 7)
         return 1;
-    // check, if the pice exists on the given location
-    else if (getPice(fromX,fromY) == 0)
+    // check, if the piece exists on the given location
+    else if (getPiece(fromX,fromY) == 0)
         return 2;
     // check, if the destination is the same as the location
     else if (fromX == toX && fromY == toY)
         return 3;
-    // checks, if the pice has the given color
+    // checks, if the piece has the given color
     else if (getColor(fromX, fromY) == 10 && !whitesTurn || getColor(fromX, fromY) == 0 && whitesTurn)
         return 4;
     // check, if the figure can reach the destination
     else if (!canMove(fromX, fromY, toX, toY))
         return 5;
-    // checks, if the destination includes a pice of the same color
-    if (getPice(toX,toY) != 0 && (getColor(toX,toY) == 10 && whitesTurn || getColor(toX,toY) == 0 && !whitesTurn))
+    // checks, if the destination includes a piece of the same color
+    if (getPiece(toX,toY) != 0 && (getColor(toX,toY) == 10 && whitesTurn || getColor(toX,toY) == 0 && !whitesTurn))
         return 6;
     // add the new figure
-    // addPice(toX,toY, getPice(fromX,fromY));
+    // addPiece(toX,toY, getPiece(fromX,fromY));
 
     // remove the figure
-    // removePice(fromX,fromY);
-    // TODO remove old pice
+    // removePiece(fromX,fromY);
+    // TODO remove old piece
 
     // (add the new danger zones)
 
 
     return 0;
 }
-void chessField::removePice(unsigned int piceX, unsigned int piceY)
+void chessField::removePiece(unsigned int pieceX, unsigned int pieceY)
 {
-    // changes the pice location to 0
-    field[piceY][piceX] = 0;
+    // changes the piece location to 0
+    field[pieceY][pieceX] = 0;
 }
-void chessField::addPice(unsigned int piceX, unsigned int piceY, unsigned int piceID)
+void chessField::addPiece(unsigned int pieceX, unsigned int pieceY, unsigned int pieceID)
 {
     // calculates the full ID
-    unsigned int piceMeta = piceID;
+    unsigned int pieceMeta = pieceID;
     // places the new
-    field[piceY][piceX] = piceMeta;
+    field[pieceY][pieceX] = pieceMeta;
 }
