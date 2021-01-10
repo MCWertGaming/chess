@@ -1,5 +1,5 @@
-#include "chess.hpp"
-#include "parsing.hpp"
+#include <chess_src/chess.hpp>
+#include <chess_src/parsing.hpp>
 #include <iostream>
 
 int main()

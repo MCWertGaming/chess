@@ -9,73 +9,17 @@ project(chess
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
-# configure about file
-configure_file(chess_src/information.hpp.in chess_src/information.hpp)
-# add include directory for using generated headers
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/chess)
+# include dependencies
+add_subdirectory(dependencies)
 
-# include cmake modules
-include(FetchContent)
-
-# disable ftxui library targets
-set(FTXUI_BUILD_EXAMPLES off)
-set(FTXUI_BUILD_DOCS off)
-set(FTXUI_ENABLE_INSTALL off)
-set(FTXUI_BUILD_TESTS off)
-
-# disable not required FOLF targets
-set(FOLF_BUILD_EXAMPLES off)
-set(FOLF_ENABLE_INSTALL off)
-
-# download ftxui library
-set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
-FetchContent_Declare(ftxui
-  GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui.git
-)
-FetchContent_GetProperties(ftxui)
-if(NOT ftxui_POPULATED)
-  FetchContent_Populate(ftxui)
-  add_subdirectory(${ftxui_SOURCE_DIR} ${ftxui_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif()
-
-# download folf-namespace library
-FetchContent_Declare(folf_namespace
-  GIT_REPOSITORY https://github.com/FOLF-projects/folf-namespace.git
-  GIT_TAG main
-)
-FetchContent_GetProperties(folf_namespace)
-if(NOT folf_namespace_POPULATED)
-  FetchContent_Populate(folf_namespace)
-  add_subdirectory(${folf_namespace_SOURCE_DIR} ${folf_namespace_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif()
-
-# chess source
-set(chess-source chess_src/chess.cpp)
-
-# targets
-add_executable(hello-world chess_tools/hello-world.cpp)
-
-add_executable(config-test chess_tools/config-test.cpp)
-target_link_libraries(config-test
-        PRIVATE folf-namespace
-        PRIVATE ftxui::screen
-        PRIVATE ftxui::dom
-        PRIVATE ftxui::component
-        )
-
-add_executable(terminal-sandbox chess_tools/terminal-sandbox.cpp)
-target_link_libraries(terminal-sandbox
-        PRIVATE folf-namespace
-        PRIVATE ftxui::screen
-        PRIVATE ftxui::dom
-        PRIVATE ftxui::component
-        )
-
-add_executable(chess-testing chess_fronts/testing.cpp ${chess-source})
-target_include_directories(chess-testing PUBLIC chess_src/)
+# inlude sub folders
+add_subdirectory(chess_src)
+add_subdirectory(chess_tools)
+add_subdirectory(chess_fronts)
+add_subdirectory(tests)
 
 # create a list of all targets
-set(target-list hello-world config-test terminal-sandbox chess-testing)
+set(target-list hello-world config-test terminal-sandbox chess-testing-old testing-target chesslib)
 
 # enable warnings and set compile features
 foreach(target ${target-list})
