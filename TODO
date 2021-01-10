@@ -13,7 +13,7 @@ move from shitty unit testing to google tests
 
 // game mechanics
 check for checkmate
-check for stalemate (patt)
+check for stalemate (Patt)
 en passong
 castling
 

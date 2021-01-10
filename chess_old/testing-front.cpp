@@ -100,7 +100,7 @@ int main()
         std::cout << "ERROR 38\n";
 
 
-    // check, if white pawn can acess white piece
+    // check, if white pawn can access white piece
     chf.clearField();
     chf.createPiece(4,1, 11);
     chf.createPiece(4,2,14);

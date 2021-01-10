@@ -85,7 +85,7 @@ bool chess::chessField::checkMate(unsigned int *kingX, unsigned int *kingY)
                                                     }
                                                     else if (enemyY < *kingY && xVector == 0)
                                                     {
-                                                        // moving straigt up
+                                                        // moving straight up
                                                         for (unsigned int liveSaverY = 0; liveSaverY <= 7; ++liveSaverY)
                                                         {
                                                             for (unsigned int liveSaverX = 0; liveSaverX <= 7; ++liveSaverX)
