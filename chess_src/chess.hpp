@@ -56,6 +56,8 @@ namespace chess
             void createPice(unsigned int, unsigned int, unsigned int piceId);
             // move a pice
             unsigned int movePice(unsigned int, unsigned int, unsigned int, unsigned int, bool);
+            // returns true, if the input is valid, for unit testing only
+            bool canMovePice(unsigned int, unsigned int, unsigned int, unsigned int, bool);
     };
 
     // pre move checks

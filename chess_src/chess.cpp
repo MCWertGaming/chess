@@ -106,7 +106,7 @@ unsigned int chess::chess::movePice(unsigned int fromX, unsigned int fromY, unsi
         return 2;
         // actual check, if the movement is legal
     else if (!canMove(&fromX, &fromY, &toX, &toY))
-        return 6;
+        return 3;
     // TODO check, if king is in check
     // TODO check, if it's checkmate
     // TODO check for stalemate
@@ -122,6 +122,21 @@ unsigned int chess::chess::movePice(unsigned int fromX, unsigned int fromY, unsi
 
 
     return 0;
+}
+bool chess::chess::canMovePice(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
+{
+    // pre move checks
+    // check for invalid input to avoid segmentation fault
+    if (!onBoard(&fromX, &fromY, &toX, &toY))
+        return false;
+    if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
+        return false;
+        // actual check, if the movement is legal
+    else if (!canMove(&fromX, &fromY, &toX, &toY))
+        return false;
+    
+    // figure would move
+    return true;
 }
 
 /* pice movement checks */
