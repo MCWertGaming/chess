@@ -31,7 +31,7 @@ TEST(illegalInputTesting, moveToIllegalPosition)
     chf.createPiece(4,4,pieceWhitePawn);
     EXPECT_FALSE(chf.canMovePiece(2,2,34,78, true));
     EXPECT_FALSE(chf.canMovePiece(4,4,90,23489,true));
-    EXPECT_FALSE(chf.canMovePiece(99,424,4324,42342,24));
+    EXPECT_FALSE(chf.canMovePiece(99,424,4324,42342,false));
     EXPECT_FALSE(chf.canMovePiece(4554,444,43534,45435,false));
 }
 TEST(illegalInputTesting, giveWrongColor)
