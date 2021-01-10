@@ -13,8 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 add_subdirectory(dependencies)
 
 # inlude sub folders
-add_subdirectory(chess_src)
-add_subdirectory(chess_tools)
+add_subdirectory(chess)
 add_subdirectory(chess_fronts)
 add_subdirectory(tests)
 

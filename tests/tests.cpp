@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <chess_src/chess.hpp>
-#include <chess_src/parsing.hpp>
+#include <chess/chess.hpp>
+#include <chess/parsing.hpp>
 
 TEST(googleTestWorking, googleTestWorking)
 {
