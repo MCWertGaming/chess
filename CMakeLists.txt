@@ -19,7 +19,7 @@ add_subdirectory(chess_fronts)
 add_subdirectory(tests)
 
 # create a list of all targets
-set(target-list hello-world config-test terminal-sandbox chess-testing-old testing-target chesslib)
+set(target-list hello-world config-test terminal-sandbox testing-target chesslib)
 
 # enable warnings and set compile features
 foreach(target ${target-list})
