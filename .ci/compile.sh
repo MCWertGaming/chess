@@ -16,6 +16,7 @@ RUN_PROGRAMMS()
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 CLEANUP
+cmake -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
 cmake --build . --config Release
 RUN_PROGRAMMS
 
@@ -23,6 +24,7 @@ RUN_PROGRAMMS
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 CLEANUP
+cmake -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
 cmake --build . --config Debug
 RUN_PROGRAMMS
 
@@ -30,6 +32,7 @@ RUN_PROGRAMMS
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 CLEANUP
+cmake -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
 cmake --build . --config Release
 RUN_PROGRAMMS
 
@@ -37,5 +40,6 @@ RUN_PROGRAMMS
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 CLEANUP
+cmake -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
 cmake --build . --config Debug
 RUN_PROGRAMMS

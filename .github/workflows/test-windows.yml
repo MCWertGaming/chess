@@ -1,4 +1,4 @@
-name: linux-integration-testing
+name: windows-integration-testing
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: windows-latest
     strategy:
       fail-fast: false
 
