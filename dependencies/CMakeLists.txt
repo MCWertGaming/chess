@@ -2,18 +2,18 @@
 include(FetchContent)
 
 # disable ftxui library targets
-set(FTXUI_BUILD_EXAMPLES off)
-set(FTXUI_BUILD_DOCS off)
-set(FTXUI_ENABLE_INSTALL off)
-set(FTXUI_BUILD_TESTS off)
+set(FTXUI_BUILD_EXAMPLES OFF CACHE BOOL "don't build examples" FORCE)
+set(FTXUI_BUILD_DOCS OFF CACHE BOOL "don't build docs" FORCE)
+set(FTXUI_ENABLE_INSTALL OFF CACHE BOOL "disable install" FORCE)
+set(FTXUI_BUILD_TESTS OFF CACHE BOOL "disable tests" FORCE)
 
 # disable not required FOLF targets
-set(FOLF_BUILD_EXAMPLES off)
-set(FOLF_ENABLE_INSTALL off)
+set(FOLF_BUILD_EXAMPLES OFF CACHE BOOL "don't build examples" FORCE)
+set(FOLF_ENABLE_INSTALL OFF CACHE BOOL "disable install" FORCE)
 
 # disable google-test targets
-set(INSTALL_GTEST off)
-set(BUILD_GMOCK off)
+set(INSTALL_GTEST OFF CACHE BOOL "disable gtest install" FORCE)
+set(BUILD_GMOCK OFF CACHE BOOL "disable gmock" FORCE)
 
 # download ftxui library
 set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
