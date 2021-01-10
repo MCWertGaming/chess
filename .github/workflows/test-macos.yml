@@ -23,14 +23,6 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v1
-      - name: install git
-        run: bash brew install
-      - name: build clang release
+      - name: test
         run: |
-          bash git reset --hard
-          bash git clean -fdx
-          bash cmake --build . --config Release
-          bash ./.ci/run-programs.sh
-        env:
-          CC: /usr/bin/clang
-          CXX: /usr/bin/clang++
+          bash .ci/compile.sh

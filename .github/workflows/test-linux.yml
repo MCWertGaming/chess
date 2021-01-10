@@ -15,10 +15,7 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v1
-      - name: build clang release
+      - name: build gcc release
         run: |
-          bash cmake --build . --config Release
-          bash ./.ci/run-programs.sh
-        env:
-          CC: /usr/bin/clang
-          CXX: /usr/bin/clang++
+          bash .ci/compile.sh
+
