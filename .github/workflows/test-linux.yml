@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v1
-      - name: build gcc release
+      - name: compile
         run: |
           bash .ci/compile.sh
 

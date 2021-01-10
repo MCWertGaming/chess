@@ -23,6 +23,6 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v1
-      - name: test
+      - name: compile
         run: |
           bash .ci/compile.sh
