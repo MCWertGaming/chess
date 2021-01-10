@@ -1,4 +1,4 @@
-name: linux-integration-testing
+name: macos-integration-testing
 
 on:
   push:
@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v1
+      - name: install git
+        run: bash brew install
       - name: build gcc release
         run: |
           bash git reset --hard
