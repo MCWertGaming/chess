@@ -30,7 +30,7 @@ endif()
 # download folf-namespace library
 FetchContent_Declare(folf_namespace
         GIT_REPOSITORY https://github.com/FOLF-projects/folf-namespace.git
-        GIT_TAG main
+        GIT_TAG V1.0.1
 )
 FetchContent_GetProperties(folf_namespace)
 if(NOT folf_namespace_POPULATED)
