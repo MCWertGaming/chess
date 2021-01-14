@@ -10,6 +10,7 @@ set(FTXUI_BUILD_TESTS OFF CACHE BOOL "disable tests" FORCE)
 # disable not required FOLF targets
 set(FOLF_BUILD_EXAMPLES OFF CACHE BOOL "don't build examples" FORCE)
 set(FOLF_ENABLE_INSTALL OFF CACHE BOOL "disable install" FORCE)
+set(FOLF_ENABLE_TESTING OFF CACHE BOOL "disable testing of folf" FORCE)
 
 # disable google-test targets
 set(INSTALL_GTEST OFF CACHE BOOL "disable gtest install" FORCE)
