@@ -14,7 +14,7 @@ unsigned int chess::chess::getPiece(unsigned int *x, unsigned int *y)
         return chessField[*x][*y] - getColor(x,y);
     else
         std::runtime_error("Illegal piece value inside chess::chess::chessField[][] found!");
-    return 0; // compiler dummy
+    return 99; // compiler dummy
 }
 unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
 {
@@ -28,7 +28,7 @@ unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
         return pieceEmpty;
     else
         std::runtime_error("Illegal color value inside chess::chess::chessField[][] found!");
-    return 0; // compiler dummy
+    return 99; // compiler dummy
 }
 /* manipulate pieces */
 void chess::chess::removePiece(const unsigned int *pieceX, const unsigned int *pieceY)
