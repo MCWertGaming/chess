@@ -41,11 +41,6 @@ void chess::chess::addPiece(const unsigned int *pieceX, const unsigned int *piec
     // places a piece
     chessField[*pieceX][*pieceY] = *pieceID;
 }
-// TODO
-// bool chess::chess::checkMate(unsigned int *kingX, unsigned int *kingY)
-// {
-//     return true;
-// }
 
 /* public members */
 
