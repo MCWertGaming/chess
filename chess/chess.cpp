@@ -52,6 +52,7 @@ chess::chess::chess()
 /* game manipulation */
 void chess::chess::clearField()
 {
+    // set piceEmpty for all parts of the field
     for (int i = 0; i <= 7; ++i)
     {
         for (int j = 0; j <= 7; ++j)
@@ -62,7 +63,9 @@ void chess::chess::clearField()
 }
 void chess::chess::initializeField()
 {
-    // white
+    // clear the field
+    clearField();
+    // white pieces
     chessField[0][0] = pieceWhiteRook;
     chessField[1][0] = pieceWhiteKnight;
     chessField[2][0] = pieceWhiteBishop;
@@ -75,7 +78,7 @@ void chess::chess::initializeField()
     {
         chessField[i][1] = pieceWhitePawn;
     }
-    // black
+    // black pieces
     chessField[0][7] = pieceBlackRook;
     chessField[1][7] = pieceBlackKnight;
     chessField[2][7] = pieceBlackBishop;
@@ -95,29 +98,29 @@ void chess::chess::createPiece(unsigned int locationX, unsigned int locationY, u
 }
 unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
 {
+    // TODO safemode, check for checkmate
+    // TODO safemode, check for stalemate
+    // TODO safemode, check the field integrity
 
     // pre move checks
+    // TODO check, if game is done
     // check for invalid input to avoid segmentation fault
     if (!onBoard(&fromX, &fromY, &toX, &toY))
         return 1;
-    if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
+    else if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
         return 2;
         // actual check, if the movement is legal
     else if (!canMove(&fromX, &fromY, &toX, &toY))
         return 3;
-    // TODO check, if king is in check
+
+    // TODO make a virtual move
+    // TODO check for king in danger
+
+    // TODO move the figure for real
+    // TODO remove old figure
+
     // TODO check, if it's checkmate
     // TODO check for stalemate
-
-    // add the new figure
-    // addPiece(toX,toY, getPiece(fromX,fromY));
-
-    // remove the figure
-    // removePiece(fromX,fromY);
-    // TODO remove old piece
-
-    // (add the new danger zones)
-
 
     return 0;
 }
