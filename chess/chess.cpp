@@ -2,6 +2,9 @@
 #include "parsing.hpp"
 #include <stdexcept>
 
+// TODO move to FOLF
+#define createVector(from,to) to - from
+
 /* private members */
 
 /* parsing functions */
@@ -145,17 +148,17 @@ bool chess::chess::canMove(unsigned int *fromX, unsigned int *fromY, unsigned in
     switch (getPiece(fromX,fromY))
     {
         case piecePawn:
-            return canPawnMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
+            return canPawnMove(fromX, fromY, toX, toY, createVector(*fromX,*toX), createVector(*fromY,*toY));
         case pieceRook:
-            return canRookMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
+            return canRookMove(fromX, fromY, toX, toY, createVector(*fromX,*toX), createVector(*fromY,*toY));
         case pieceBishop:
-            return canBishopMove(fromX, fromY, toX, createVector(fromX,toX), createVector(fromY,toY));
+            return canBishopMove(fromX, fromY, toX, createVector(*fromX,*toX), createVector(*fromY,*toY));
         case pieceKnight:
-            return canKnightMove(createVector(fromX,toX), createVector(fromY,toY));
+            return canKnightMove(createVector(*fromX,*toX), createVector(*fromY,*toY));
         case pieceKing:
-            return canKingMove(fromX,fromY,toX,toY,createVector(fromX,toX), createVector(fromY,toY));
+            return canKingMove(fromX,fromY,toX,toY,createVector(*fromX,*toX), createVector(*fromY,*toY));
         case pieceQueen:
-            return canQueenMove(fromX, fromY, toX, toY, createVector(fromX,toX), createVector(fromY,toY));
+            return canQueenMove(fromX, fromY, toX, toY, createVector(*fromX,*toX), createVector(*fromY,*toY));
         default:
             std::runtime_error("chess::chess::getPiece() returned an illegal value!");
     }
@@ -341,10 +344,4 @@ bool chess::checkCaptureTeam(const unsigned int* colorDestination, const bool *w
     return *colorDestination != pieceEmpty &&
            ((*colorDestination == pieceWhiteColor && *whitesTurn) ||
            (*colorDestination == pieceBlackColor && !*whitesTurn));
-}
-
-// TODO move into FOLF
-signed int chess::createVector(const unsigned int *from, const unsigned int *to)
-{
-    return *to - *from;
 }

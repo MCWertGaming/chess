@@ -73,7 +73,4 @@ namespace chess
     bool checkRightColor(const unsigned int*, const bool*);
     // returns true, if the given movement captures a piece of the same color as the capturing piece
     bool checkCaptureTeam(const unsigned int*, const bool*);
-
-    // TODO move into FOLF
-    signed int createVector(const unsigned int*, const unsigned int*);
 }
