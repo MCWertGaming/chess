@@ -24,3 +24,7 @@
 #define pieceBlackKnight 24
 #define pieceBlackKing 25
 #define pieceBlackQueen 26
+// piece statusses
+#define virtualMoveIndicator 100
+// #define enPassonPossible 1000
+// #define castlingPossible 2000

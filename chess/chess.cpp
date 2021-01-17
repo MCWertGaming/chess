@@ -10,26 +10,51 @@
 /* parsing functions */
 unsigned int chess::chess::getPiece(unsigned int *x, unsigned int *y)
 {
-    if (chessField[*x][*y] - getColor(x,y) < 7)
-        return chessField[*x][*y] - getColor(x,y);
+    if (chessField[*x][*y] - getColor(x,y) - getVirtualMove(x,y) < 7)
+        return chessField[*x][*y] - getColor(x,y) - getVirtualMove(x,y);
     else
         std::runtime_error("Illegal piece value inside chess::chess::chessField[][] found!");
     return 99; // compiler dummy
 }
 unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
 {
-    if (chessField[*x][*y] < 27 &&
-        chessField[*x][*y] > pieceBlackColor)
+    if (chessField[*x][*y] - getVirtualMove(x,y) < 27 &&
+        chessField[*x][*y] - getVirtualMove(x,y) > pieceBlackColor)
         return pieceBlackColor;
-    else if (chessField[*x][*y] < 17 &&
-             chessField[*x][*y] > pieceWhiteColor)
+    else if (chessField[*x][*y] - getVirtualMove(x,y) < 17 &&
+             chessField[*x][*y] - getVirtualMove(x,y) > pieceWhiteColor)
         return pieceWhiteColor;
-    else if (chessField[*x][*y] == pieceEmpty)
+    else if (chessField[*x][*y] - getVirtualMove(x,y) == pieceEmpty)
         return pieceEmpty;
     else
         std::runtime_error("Illegal color value inside chess::chess::chessField[][] found!");
     return 99; // compiler dummy
 }
+unsigned int chess::chess::getVirtualMove(unsigned int* x, unsigned int* y)
+{
+    if (chessField[*x][*y] > virtualMoveIndicator)
+        return virtualMoveIndicator;
+    else
+        return 0;
+    // TODO add parsing tests
+}
+void chess::chess::getKingCoord(unsigned int* kingX, unsigned int* kingY, bool* whiteKing)
+{
+    for (unsigned int i = 0; i < 8; i++)
+    {
+        for (unsigned int j = 0; i < 8; i++)
+        {
+            if ((chessField[i][j] == pieceWhiteKing && *whiteKing == true) ||
+                (chessField[i][j] == pieceBlackKing && *whiteKing == false))
+            {
+                *kingX = i;
+                *kingY = j;
+                return;
+            }
+        }
+    }
+}
+
 /* manipulate pieces */
 void chess::chess::removePiece(const unsigned int *pieceX, const unsigned int *pieceY)
 {
@@ -40,6 +65,39 @@ void chess::chess::addPiece(const unsigned int *pieceX, const unsigned int *piec
 {
     // places a piece
     chessField[*pieceX][*pieceY] = *pieceID;
+}
+void chess::chess::makeVirtualMove(unsigned int* fromX, unsigned int* fromY, unsigned int* toX, unsigned int* toY)
+{
+    moveCache = chessField[*toX][*toY];
+    chessField[*toX][*toY] = chessField[*fromX][*fromY] + virtualMoveIndicator;
+    chessField[*fromX][*fromY] = pieceEmpty + virtualMoveIndicator;
+}
+void chess::chess::makeRealMove(unsigned int* fromX, unsigned int* fromY, unsigned int* toX, unsigned int* toY)
+{
+    // check if the locations are virtual
+    if (getVirtualMove(fromX, fromY) == virtualMoveIndicator && 
+        getVirtualMove(toX, toY) == virtualMoveIndicator)
+    {
+        chessField[*fromX][*fromY] = chessField[*fromX][*fromY] - virtualMoveIndicator;
+        chessField[*toX][*toY] = chessField[*toX][*toY] - virtualMoveIndicator;
+    }
+    else
+        // missing virtual move indicator
+        std::runtime_error("makeRealMove: missing virtual move indicator!");
+}
+void chess::chess::revertVirtualMove(unsigned int* fromX, unsigned int* fromY, unsigned int* toX, unsigned int* toY)
+{
+    // check if the locations are virtual
+    if (getVirtualMove(fromX, fromY) == virtualMoveIndicator && 
+        getVirtualMove(toX, toY) == virtualMoveIndicator)
+    {
+        chessField[*fromX][*fromY] = chessField[*toX][*toY] + virtualMoveIndicator;
+        chessField[*toX][*toY] = moveCache;
+        chessField[*fromX][*fromY] = chessField[*fromX][*fromY] - virtualMoveIndicator;
+    }
+    else
+        // missing virtual move indicator
+        std::runtime_error("makeRealMove: missing virtual move indicator!");
 }
 
 /* public members */
@@ -60,6 +118,8 @@ void chess::chess::clearField()
             chessField[i][j] = pieceEmpty;
         }
     }
+    // set the game status to running
+    gameDone = false;
 }
 void chess::chess::initializeField()
 {
@@ -91,6 +151,8 @@ void chess::chess::initializeField()
     {
         chessField[i][6] = pieceBlackPawn;
     }
+    // set the game status to running
+    gameDone = false;
 }
 void chess::chess::createPiece(unsigned int locationX, unsigned int locationY, unsigned int pieceId)
 {
@@ -103,40 +165,59 @@ unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, uns
     // TODO safemode, check the field integrity
 
     // pre move checks
-    // TODO check, if game is done
+    // check if the game is already done
+    if (gameDone == true)
+        return 1;
     // check for invalid input to avoid segmentation fault
     if (!onBoard(&fromX, &fromY, &toX, &toY))
-        return 1;
-    else if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
         return 2;
+    // run pre move checks to catch the first errors
+    else if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
+        return 3;
         // actual check, if the movement is legal
     else if (!canMove(&fromX, &fromY, &toX, &toY))
-        return 3;
+        return 4;
 
-    // TODO make a virtual move
-    // TODO check for king in danger
-
-    // TODO move the figure for real
-    // TODO remove old figure
+    // make a virtual move
+    makeVirtualMove(&fromX, &fromY, &toX, &toY);
+    { // find the king
+        unsigned int kingX;
+        unsigned int kingY;
+        getKingCoord(&kingX, &kingY, &whitesTurn);
+        // check if the king is in chess
+        if (kingInDanger(kingX, kingY, whitesTurn))
+        {
+            revertVirtualMove(&fromX, &fromY, &toX, &toY);
+            return 5;
+        }
+        else
+            // king is safe! make a real move
+            makeRealMove(&fromX, &fromY, &toX, &toY);
+    }
 
     // TODO check, if it's checkmate
     // TODO check for stalemate
+
+    // TODO check field integrity
 
     return 0;
 }
 bool chess::chess::canMovePiece(unsigned int fromX, unsigned int fromY, unsigned int toX, unsigned int toY, bool whitesTurn)
 {
     // pre move checks
+    // check if the game is already done
+    if (gameDone == true)
+        return false;
     // check for invalid input to avoid segmentation fault
     if (!onBoard(&fromX, &fromY, &toX, &toY))
         return false;
-    if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
+    // run pre move checks to catch the first errors
+    else if (!preMoveChecks(&fromX, &fromY, &toX, &toY, getColor(&fromX, &fromY), getColor(&toX, &toY), &whitesTurn))
         return false;
         // actual check, if the movement is legal
     else if (!canMove(&fromX, &fromY, &toX, &toY))
         return false;
-    
-    // figure would move
+
     return true;
 }
 

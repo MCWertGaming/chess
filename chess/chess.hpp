@@ -7,6 +7,8 @@ namespace chess
         private:
             // stores the field, chessField[X][Y]
             unsigned short int chessField[8][8]{};
+            unsigned short int moveCache{};
+            bool gameDone{};
 
             /* parsing functions */
 
@@ -14,6 +16,10 @@ namespace chess
             unsigned int getPiece(unsigned int*, unsigned int*);
             // returns true on white pieces
             unsigned int getColor(unsigned int*, unsigned int*);
+            // get virtual move indicator
+            unsigned int getVirtualMove(unsigned int*, unsigned int*);
+            // get king coordinates
+            void getKingCoord(unsigned int*, unsigned int*, bool*);
             
             /* manipulate pieces */
 
@@ -21,7 +27,10 @@ namespace chess
             void removePiece(const unsigned int*, const unsigned int*);
             // adds piece
             void addPiece(const unsigned int*, const unsigned int*, const unsigned int*);
-            // returns true, if the piece can move to the destination
+            // perform virtual move
+            void makeVirtualMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*);
+            void revertVirtualMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*);
+            void makeRealMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*);
 
             /* piece move checks */
 
