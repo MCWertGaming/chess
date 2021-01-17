@@ -196,7 +196,7 @@ TEST(pieceMovementTest, testKnightMovement)
     chess::chess chf;
     chf.clearField();
     chf.createPiece(3,3,pieceWhiteKnight);
-    EXPECT_TRUE(chf.canMovePiece(3,3,1,2,true));
+    EXPECT_TRUE(chf.canMovePiece(3,3,1,2, true));
     EXPECT_TRUE(chf.canMovePiece(3,3,1,4, true));
     EXPECT_TRUE(chf.canMovePiece(3,3,2,1, true));
     EXPECT_TRUE(chf.canMovePiece(3,3,2,5, true));
