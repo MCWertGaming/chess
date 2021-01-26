@@ -180,9 +180,11 @@ unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, uns
 
     // make a virtual move
     makeVirtualMove(&fromX, &fromY, &toX, &toY);
-    { // find the king
-        unsigned int kingX;
-        unsigned int kingY;
+    // limit the vars lifetime
+    {
+        // find the king
+        unsigned int kingX = 99; // dummy coord for compiler
+        unsigned int kingY = 99; // dummy coord for compiler
         getKingCoord(&kingX, &kingY, &whitesTurn);
         // check if the king is in chess
         if (kingInDanger(kingX, kingY, whitesTurn))
@@ -191,8 +193,10 @@ unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, uns
             return 5;
         }
         else
+        {
             // king is safe! make a real move
             makeRealMove(&fromX, &fromY, &toX, &toY);
+        }
     }
 
     // TODO check, if it's checkmate
