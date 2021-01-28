@@ -2,11 +2,6 @@
 #include <chess/chess.hpp>
 #include <chess/parsing.hpp>
 
-TEST(googleTestWorking, googleTestWorking)
-{
-    EXPECT_EQ(true, true);
-}
-
 TEST(illegalInputTesting, notExistingPiece)
 {
     chess::chess chf;

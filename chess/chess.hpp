@@ -67,6 +67,9 @@ namespace chess
             unsigned int movePiece(unsigned int, unsigned int, unsigned int, unsigned int, bool);
             // returns true, if the input is valid, for unit testing only
             bool canMovePiece(unsigned int, unsigned int, unsigned int, unsigned int, bool);
+
+            /* parsing */
+            unsigned int getField(unsigned int, unsigned int);
     };
 
     // pre move checks
