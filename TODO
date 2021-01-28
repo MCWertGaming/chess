@@ -11,8 +11,6 @@ check, if the the starting position is correct
 every piece tested in white and black
 every piece tested in movement / capture / illegal movement / move through etc
 
-move from shitty unit testing to google tests
-
 // game mechanics
 check for checkmate
 check for stalemate (Patt)
