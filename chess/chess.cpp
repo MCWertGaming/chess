@@ -1,9 +1,7 @@
 #include "chess.hpp"
 #include "parsing.hpp"
+#include <folf/calcTools.hpp>
 #include <stdexcept>
-
-// TODO move to FOLF
-#define createVector(from,to) to - from
 
 /* private members */
 
@@ -232,17 +230,17 @@ bool chess::chess::canMove(unsigned int *fromX, unsigned int *fromY, unsigned in
     switch (getPiece(fromX,fromY))
     {
         case piecePawn:
-            return canPawnMove(fromX, fromY, toX, toY, createVector(*fromX,*toX), createVector(*fromY,*toY));
+            return canPawnMove(fromX, fromY, toX, toY, folf_vectorCreate(*fromX,*toX), folf_vectorCreate(*fromY,*toY));
         case pieceRook:
-            return canRookMove(fromX, fromY, toX, toY, createVector(*fromX,*toX), createVector(*fromY,*toY));
+            return canRookMove(fromX, fromY, toX, toY, folf_vectorCreate(*fromX,*toX), folf_vectorCreate(*fromY,*toY));
         case pieceBishop:
-            return canBishopMove(fromX, fromY, toX, createVector(*fromX,*toX), createVector(*fromY,*toY));
+            return canBishopMove(fromX, fromY, toX, folf_vectorCreate(*fromX,*toX), folf_vectorCreate(*fromY,*toY));
         case pieceKnight:
-            return canKnightMove(createVector(*fromX,*toX), createVector(*fromY,*toY));
+            return canKnightMove(folf_vectorCreate(*fromX,*toX), folf_vectorCreate(*fromY,*toY));
         case pieceKing:
-            return canKingMove(fromX,fromY,toX,toY,createVector(*fromX,*toX), createVector(*fromY,*toY));
+            return canKingMove(fromX,fromY,toX,toY,folf_vectorCreate(*fromX,*toX), folf_vectorCreate(*fromY,*toY));
         case pieceQueen:
-            return canQueenMove(fromX, fromY, toX, toY, createVector(*fromX,*toX), createVector(*fromY,*toY));
+            return canQueenMove(fromX, fromY, toX, toY, folf_vectorCreate(*fromX,*toX), folf_vectorCreate(*fromY,*toY));
         default:
             std::runtime_error("chess::chess::getPiece() returned an illegal value!");
     }

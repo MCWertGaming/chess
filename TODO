@@ -19,8 +19,5 @@ check for stalemate (Patt)
 en passong
 castling
 
-// waiting
-move createVector into folf
-
 // later
 throw runtime_errors on wrong data
