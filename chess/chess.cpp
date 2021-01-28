@@ -183,6 +183,7 @@ unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, uns
     // limit the vars lifetime
     {
         // find the king
+        // TODO improve
         unsigned int kingX = 99; // dummy coord for compiler
         unsigned int kingY = 99; // dummy coord for compiler
         getKingCoord(&kingX, &kingY, &whitesTurn);
