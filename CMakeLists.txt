@@ -18,7 +18,7 @@ add_subdirectory(chess_fronts)
 add_subdirectory(tests)
 
 # create a list of all targets
-set(target-list testing-target chesslib)
+set(target-list chesslib)
 
 # enable warnings and set compile features
 foreach(target ${target-list})
