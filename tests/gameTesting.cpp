@@ -11,8 +11,8 @@ TEST(gameTesting, initialState)
     EXPECT_EQ(chessObj.getField(0,0), pieceWhiteRook);
     EXPECT_EQ(chessObj.getField(1,0), pieceWhiteKnight);
     EXPECT_EQ(chessObj.getField(2,0), pieceWhiteBishop);
-    EXPECT_EQ(chessObj.getField(3,0), pieceWhiteKing);
-    EXPECT_EQ(chessObj.getField(4,0), pieceWhiteQueen);
+    EXPECT_EQ(chessObj.getField(3,0), pieceWhiteQueen);
+    EXPECT_EQ(chessObj.getField(4,0), pieceWhiteKing);
     EXPECT_EQ(chessObj.getField(5,0), pieceWhiteBishop);
     EXPECT_EQ(chessObj.getField(6,0), pieceWhiteKnight);
     EXPECT_EQ(chessObj.getField(7,0), pieceWhiteRook);
@@ -29,8 +29,8 @@ TEST(gameTesting, initialState)
     EXPECT_EQ(chessObj.getField(0,7), pieceBlackRook);
     EXPECT_EQ(chessObj.getField(1,7), pieceBlackKnight);
     EXPECT_EQ(chessObj.getField(2,7), pieceBlackBishop);
-    EXPECT_EQ(chessObj.getField(3,7), pieceBlackKing);
-    EXPECT_EQ(chessObj.getField(4,7), pieceBlackQueen);
+    EXPECT_EQ(chessObj.getField(3,7), pieceBlackQueen);
+    EXPECT_EQ(chessObj.getField(4,7), pieceBlackKing);
     EXPECT_EQ(chessObj.getField(5,7), pieceBlackBishop);
     EXPECT_EQ(chessObj.getField(6,7), pieceBlackKnight);
     EXPECT_EQ(chessObj.getField(7,7), pieceBlackRook);

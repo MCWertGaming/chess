@@ -127,8 +127,8 @@ void chess::chess::initializeField()
     chessField[0][0] = pieceWhiteRook;
     chessField[1][0] = pieceWhiteKnight;
     chessField[2][0] = pieceWhiteBishop;
-    chessField[3][0] = pieceWhiteKing;
-    chessField[4][0] = pieceWhiteQueen;
+    chessField[3][0] = pieceWhiteQueen;
+    chessField[4][0] = pieceWhiteKing;
     chessField[5][0] = pieceWhiteBishop;
     chessField[6][0] = pieceWhiteKnight;
     chessField[7][0] = pieceWhiteRook;
@@ -140,8 +140,8 @@ void chess::chess::initializeField()
     chessField[0][7] = pieceBlackRook;
     chessField[1][7] = pieceBlackKnight;
     chessField[2][7] = pieceBlackBishop;
-    chessField[3][7] = pieceBlackKing;
-    chessField[4][7] = pieceBlackQueen;
+    chessField[3][7] = pieceBlackQueen;
+    chessField[4][7] = pieceBlackKing;
     chessField[5][7] = pieceBlackBishop;
     chessField[6][7] = pieceBlackKnight;
     chessField[7][7] = pieceBlackRook;
