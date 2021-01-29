@@ -30,7 +30,7 @@ unsigned int chess::chess::getColor(unsigned int *x, unsigned int *y)
 }
 unsigned int chess::chess::getVirtualMove(unsigned int* x, unsigned int* y)
 {
-    if (chessField[*x][*y] > virtualMoveIndicator)
+    if (chessField[*x][*y] >= virtualMoveIndicator)
         return virtualMoveIndicator;
     else
         return 0;
