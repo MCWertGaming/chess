@@ -89,7 +89,6 @@ void chess::chess::revertVirtualMove(unsigned int* fromX, unsigned int* fromY, u
     if (getVirtualMove(fromX, fromY) == virtualMoveIndicator && 
         getVirtualMove(toX, toY) == virtualMoveIndicator)
     {
-        chessField[*fromX][*fromY] = chessField[*toX][*toY] + virtualMoveIndicator;
         chessField[*toX][*toY] = moveCache;
         chessField[*fromX][*fromY] = chessField[*fromX][*fromY] - virtualMoveIndicator;
     }
