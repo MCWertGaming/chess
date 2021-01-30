@@ -51,7 +51,12 @@ TEST(gameTesting, foolsMate)
     chessObj.clearField();
     chessObj.initializeField();
 
-    // f2 - f3
-    //chessObj.movePiece()
-
+    // f3
+    ASSERT_EQ(chessObj.movePiece(5, 1, 5, 2, true), 0);
+    // e5
+    ASSERT_EQ(chessObj.movePiece(4, 6, 4, 5, false), 0);
+    // g4
+    ASSERT_EQ(chessObj.movePiece(6, 1, 6, 3, true), 0);
+    // Qh4#
+    ASSERT_EQ(chessObj.movePiece(3, 7, 7, 3, false), 0);
 }
