@@ -18,8 +18,6 @@ namespace chess
             unsigned int getColor(unsigned int*, unsigned int*);
             // get virtual move indicator
             unsigned int getVirtualMove(unsigned int*, unsigned int*);
-            // get king coordinates
-            void getKingCoord(unsigned int*, unsigned int*, bool*);
             
             /* manipulate pieces */
 
@@ -44,7 +42,10 @@ namespace chess
             bool canKingMove(unsigned int*, unsigned int*, const unsigned int*, const unsigned int*, signed int, signed int);
             bool canQueenMove(unsigned int*, unsigned int*, unsigned int*, unsigned int*, signed int, signed int);
 
+            // returns true if the king is would be in check on the given coordinates
             bool kingInDanger(unsigned int, unsigned int, unsigned int);
+            // returns true if the king is in check right now on his actual position
+            bool kingInDanger(bool*);
 
             // after move checks
             // TODO checkmate

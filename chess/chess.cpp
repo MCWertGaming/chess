@@ -36,22 +36,6 @@ unsigned int chess::chess::getVirtualMove(unsigned int* x, unsigned int* y)
         return 0;
     // TODO add parsing tests
 }
-void chess::chess::getKingCoord(unsigned int* kingX, unsigned int* kingY, bool* whiteKing)
-{
-    for (unsigned int i = 0; i < 8; i++)
-    {
-        for (unsigned int j = 0; i < 8; i++)
-        {
-            if ((chessField[i][j] == pieceWhiteKing && *whiteKing == true) ||
-                (chessField[i][j] == pieceBlackKing && *whiteKing == false))
-            {
-                *kingX = i;
-                *kingY = j;
-                return;
-            }
-        }
-    }
-}
 
 /* manipulate pieces */
 void chess::chess::removePiece(const unsigned int *pieceX, const unsigned int *pieceY)
@@ -177,24 +161,17 @@ unsigned int chess::chess::movePiece(unsigned int fromX, unsigned int fromY, uns
 
     // make a virtual move
     makeVirtualMove(&fromX, &fromY, &toX, &toY);
-    // limit the vars lifetime
+
+    // check if the king is in chess
+    if (kingInDanger(&whitesTurn))
     {
-        // find the king
-        // TODO improve
-        unsigned int kingX = 99; // dummy coord for compiler
-        unsigned int kingY = 99; // dummy coord for compiler
-        getKingCoord(&kingX, &kingY, &whitesTurn);
-        // check if the king is in chess
-        if (kingInDanger(kingX, kingY, whitesTurn))
-        {
-            revertVirtualMove(&fromX, &fromY, &toX, &toY);
-            return 5;
-        }
-        else
-        {
-            // king is safe! make a real move
-            makeRealMove(&fromX, &fromY, &toX, &toY);
-        }
+        revertVirtualMove(&fromX, &fromY, &toX, &toY);
+        return 5;
+    }
+    else
+    {
+        // king is safe! make a real move
+        makeRealMove(&fromX, &fromY, &toX, &toY);
     }
 
     // TODO check, if it's checkmate
@@ -390,9 +367,25 @@ bool chess::chess::kingInDanger(unsigned int locationX, unsigned int locationY, 
     }
     return false;
 }
+bool chess::chess::kingInDanger(bool *whitesTurn)
+{
+    for (unsigned int i = 0; i < 8; i++)
+    {
+        for (unsigned int j = 0; i < 8; i++)
+        {
+            if ((chessField[i][j] == pieceWhiteKing && *whitesTurn == true) ||
+                (chessField[i][j] == pieceBlackKing && *whitesTurn == false))
+            {
+                return kingInDanger(i, j, getColor(&i, &j));
+            }
+        }
+    }
+    std::runtime_error("failed to find king at chess::chess::kingInDanger(bool*)");
+    return false; // compiler dummy
+}
 unsigned int chess::chess::getField(unsigned int fieldX, unsigned int fieldY)
 {
-    // TODO check leagl field value
+    // TODO check legal field value
     return chessField[fieldX][fieldY];
 }
 
