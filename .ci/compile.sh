@@ -9,7 +9,7 @@ CLEANUP()
 RUN_PROGRAMMS()
 {
     # a list of all programs / targets compiled by this project
-    ./tests/testing-target
+    ./tests/testingTarget
 }
 
 # compile gcc release
