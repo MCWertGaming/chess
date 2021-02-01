@@ -1,9 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        sh './.ci/compile.sh'
+        sh '''chmod +x .ci/compile.sh
+.ci/compile.sh'''
       }
     }
 
